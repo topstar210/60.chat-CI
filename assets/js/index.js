@@ -40,12 +40,12 @@ function checkForm() {
         ok = false;
     }
     
-    let gender = $('#groub_gender :checked').val();
+    /*let gender = $('#groub_gender :checked').val();
      
     if(!gender){
         $('#error_gender').show();
         ok = false;
-    }
+    }*/
 
     return ok;
 }
