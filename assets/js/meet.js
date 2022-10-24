@@ -1,5 +1,5 @@
-// let ssUrl = "https://60.chat";
-let ssUrl = "http://localhost";
+let ssUrl = "https://60.chat";
+// let ssUrl = "http://localhost";
 
 let connection, myId, partnerId, currChannelId;
 let onlineUsers = [];
@@ -15,8 +15,9 @@ $(document).ready(function(){
     // initial connection
     myId = hash;
     connection = new RTCMultiConnection();
-    connection.socketURL = ssUrl + ':8443/';
+    connection.socketURL = ssUrl + ':' + server_port + '/';
 
+    loadingStart();
     initialConnect();
     connection.openOrJoin(myId);
     socketActions();
@@ -68,8 +69,9 @@ function displayPartnerData(pId){
     if(partnerData){
         $("#partner_name").html(partnerData.username);
         $("#partner_gender").html(partnerData.usergender);
-        const imgname = (partnerData.usergender).toLowerCase() + "_" + (Math.floor(Math.random() * 5 +1))
-        $('#partner_avatar').html('<img src="./assets/imgs/'+imgname+'.png" width="100%" height="100%" />');
+        // const imgname = (partnerData.usergender).toLowerCase() + "_" + (Math.floor(Math.random() * 5 +1))
+        const imgname = "unknown_1";
+        $('#partner_avatar').html('<img src="https://60.chat/assets/imgs/'+imgname+'.png" width="100%" height="100%" />');
     }
 }
 
@@ -103,7 +105,6 @@ function clearAllInterval(){
 
 /* just start count down */
 function startCountdown() {
-    let counter = 60;
     loadingEnd();
     clearAllInterval();
     _countdownInterval = setInterval(function () {
@@ -126,7 +127,7 @@ function afterStreamEnded() {
     acceptFlag = false;
     latedConTime = Date.now();
 
-    if (ignoreList.indexOf(partnerId) == -1) ignoreList.push(partnerId);
+    // if (ignoreList.indexOf(partnerId) == -1) ignoreList.push(partnerId);
     
     loadingStart();
     researchPartner();
@@ -197,9 +198,9 @@ function socketActions() {
     connection.socket.on('users_state',function(data){
         if(data.currUsers.length < 2) return;
 
-        $('.videoPeople').text(data.currUsers.length + " users online");
         usersData = data.udata;
         onlineUsers = data.currUsers;
+        $('.videoPeople').text(onlineUsers.length + " users online");
 
         if(data.state == 'connect' && data.userid == myId){
             loadingStart();
@@ -209,6 +210,13 @@ function socketActions() {
             }, 500);
         }
     });
+
+    connection.socket.on('users_disconnect', function(data){
+        const oInd = onlineUsers.indexOf(data.userid);
+        onlineUsers.splice(oInd, 1); // delete in users list
+        $('.videoPeople').text(onlineUsers.length + " users online");
+        delete usersData[data.userid]; // delete data in users data
+    })
 
     // my side
     connection.socket.on('selected_partner', function(data){
@@ -253,7 +261,7 @@ function socketActions() {
 
 function loadingStart() {
     clearInterval(_countdownInterval);
-    $('.span_counter_label').html('60');
+    $('.span_counter_label').html('0');
     $("#videos-second-container").html($('#partnerLoading').html());
     $('.videoCounterWrap').removeClass('videoCounterWrapActive');
     $('#titlePage').text('Waiting for the next meeting.');

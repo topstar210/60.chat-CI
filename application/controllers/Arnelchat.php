@@ -1,13 +1,13 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Sixtychat extends MY_Controller {
+class Arnel extends MY_Controller {
 	public function index()
 	{
 		$sql = "SELECT * FROM site_options WHERE vkey='online_users'";
 		$result = $this->db->query($sql)->result_array();
 		$online_users = $result[0]['value'];
-		$this->load->view('clientside/index', ['online_users'=>$online_users, 'stitle'=>"60 Second Video Meet"]);
+		$this->load->view('clientside/index', ['online_users'=>$online_users]);
 	}
 
 	public function faceWaiting() {

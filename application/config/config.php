@@ -23,8 +23,8 @@ date_default_timezone_set('Europe/Istanbul');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://localhost/60.chat/';
-// $config['base_url'] = 'http://localhost/SassApp/';
+// $config['base_url'] = 'http://localhost/60.chat/';
+$config['base_url'] = 'https://60.chat/';
 
 /*
 |--------------------------------------------------------------------------

@@ -1,16 +1,16 @@
 <?php require_once __DIR__ . '/layouts/header.php'; ?>
 
         <div class="text-center user_count">
-            <strong>10</strong> + online now!
+            <strong><?php echo $online_users; ?></strong> + online now!
         </div>
         <div class="container">
             <div class="row" style="margin-top:20px; margin-bottom: 0px">
             <div class="col-md-5 ">
-                <h1>60 Second Video Meet</h1>
+                <h1><?php echo $stitle; ?></h1>
                 <p>
                     Join our community and find a warm and meaningful connection!
                 </p>
-                <form id="frmFacetime" onsubmit="return checkForm();" action="sixtychat/faceWaiting" method="get" style="margin: 15px;">
+                <form id="frmFacetime" onsubmit="return checkForm();" action=".<?php echo $_SERVER['REQUEST_URI']; ?>/faceWaiting" method="get" style="margin: 15px;">
                     <div class="row">
                         <div class="form-group">
                             <label>Your Name:</label>

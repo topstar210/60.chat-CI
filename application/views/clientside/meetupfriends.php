@@ -12,8 +12,8 @@
         gender: '<?php echo $minfo->gender; ?>',
     };
     const hash = "<?php echo $hash; ?>";
-    let server_port = 8443;
-    let counter = 60;
+    let server_port = 8444;
+    let counter = 1800;
 </script>
 
 <div class="container">

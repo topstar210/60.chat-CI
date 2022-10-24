@@ -24,7 +24,7 @@
     <body>
         <nav class="navbar navbar-expand-lg">
             <div class="container">
-                <a class="navbar-brand" href="">
+                <a class="navbar-brand" href="/">
                     <img src="<?php echo base_url('assets'); ?>/imgs/logo.png" width="50" alt="">
                 </a>
             </div>
